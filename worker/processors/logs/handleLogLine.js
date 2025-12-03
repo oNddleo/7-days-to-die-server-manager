@@ -274,7 +274,7 @@ module.exports = logLine => {
     returnValue.data = deathMessage;
   }
 
-  if (logLine.msg.startsWith('[CSMM_Patrons]playerLeveled:')) {
+  if (/^\[(CSMM_Patrons|PrismaCore)\]playerLeveled:/.test(logLine.msg)) {
     /*
     {
       "date": "2017-11-14",
@@ -312,7 +312,7 @@ module.exports = logLine => {
     returnValue.data = lvlMessage;
   }
 
-  if (logLine.msg.startsWith('[CSMM_Patrons]entityKilled:')) {
+  if (/^\[(CSMM_Patrons|PrismaCore)\]entityKilled:/.test(logLine.msg)) {
     /*
     {
       "date": "2017-11-14",

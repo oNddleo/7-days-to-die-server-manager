@@ -13,6 +13,32 @@ describe('HELPER sdtd/check-mod-version', () => {
     const result = await sails.helpers.sdtd.checkModVersion('Mod Allocs MapRendering and Webinterface', sails.testServer.id);
     expect(result).to.eql(33.2);
   });
+
+  it('returns version for Mod PrismaCore', async () => {
+    sandbox.stub(sails.helpers.sdtdApi, 'executeConsoleCommand').callsFake(async function() {
+      return {
+        command: 'version',
+        parameters: '',
+        result: 'Game version: Alpha 21 (b317) Compatibility Version: Alpha 21\r\n' +
+          'Mod PrismaCore: 7.2\r\n'
+      };
+    });
+    const result = await sails.helpers.sdtd.checkModVersion('Mod PrismaCore', sails.testServer.id);
+    expect(result).to.eql(7.2);
+  });
+
+  it('returns version for Mod 1PrismaCore', async () => {
+    sandbox.stub(sails.helpers.sdtdApi, 'executeConsoleCommand').callsFake(async function() {
+      return {
+        command: 'version',
+        parameters: '',
+        result: 'Game version: Alpha 21 (b317) Compatibility Version: Alpha 21\r\n' +
+          'Mod 1PrismaCore: 7.2\r\n'
+      };
+    });
+    const result = await sails.helpers.sdtd.checkModVersion('Mod 1PrismaCore', sails.testServer.id);
+    expect(result).to.eql(7.2);
+  });
 });
 
 

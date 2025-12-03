@@ -246,6 +246,63 @@ describe('sdtdLogs#handleLogLine', () => {
 
   });
 
+  it('correctly detects a PrismaCore playerLevel event', () => {
+    const logLine = {
+      'date': '2020-07-11',
+      'time': '08:11:40',
+      'uptime': '1673.118',
+      'msg': '[PrismaCore]playerLeveled: (VE) Kiota (76561198108856299) made level 4 (was 3)',
+      'trace': '',
+      'type': 'Log'
+    };
+
+    const result = handleLogLine(logLine);
+
+    expect(result.type).to.eq('playerLevel');
+    expect(result.data.steamId).to.eq('76561198108856299');
+    expect(result.data.newLvl).to.eq('4');
+    expect(result.data.oldLvl).to.eq('3');
+
+  });
+
+  it('correctly detects a PrismaCore A20 playerLevel event', () => {
+    const logLine = {
+      'date': '2020-07-11',
+      'time': '08:11:40',
+      'uptime': '1673.118',
+      'msg': '[PrismaCore]playerLeveled: Catalysm (Steam_76561198028175941) made level 2 (was 1)',
+      'trace': '',
+      'type': 'Log'
+    };
+
+    const result = handleLogLine(logLine);
+
+    expect(result.type).to.eq('playerLevel');
+    expect(result.data.steamId).to.eq('76561198028175941');
+    expect(result.data.newLvl).to.eq('2');
+    expect(result.data.oldLvl).to.eq('1');
+
+  });
+
+  it('correctly detects a PrismaCore XBL player playerLevel event', () => {
+    const logLine = {
+      'date': '2020-07-11',
+      'time': '08:11:40',
+      'uptime': '1673.118',
+      'msg': '[PrismaCore]playerLeveled: player (XBL_FA8E82BBF713BA2A53D74196F3D158368D344D7F) made level 135 (was 133)',
+      'trace': '',
+      'type': 'Log'
+    };
+
+    const result = handleLogLine(logLine);
+
+    expect(result.type).to.eq('playerLevel');
+    expect(result.data.steamId).to.eq('XBL_FA8E82BBF713BA2A53D74196F3D158368D344D7F');
+    expect(result.data.newLvl).to.eq('135');
+    expect(result.data.oldLvl).to.eq('133');
+
+  });
+
   it('correctly detects a zombieKilled event', () => {
     const logLine = {
       'date': '2017-11-14',
@@ -282,6 +339,42 @@ describe('sdtdLogs#handleLogLine', () => {
 
   });
 
+  it('correctly detects a PrismaCore zombieKilled event', () => {
+    const logLine = {
+      'date': '2017-11-14',
+      'time': '14:50:49',
+      'uptime': '133.559',
+      'msg': '[PrismaCore]entityKilled: (VE) Kiota (76561198028175941) killed zombie zombieBoe',
+      'trace': '',
+      'type': 'Log'
+    };
+    const result = handleLogLine(logLine);
+
+    expect(result.type).to.eq('zombieKilled');
+    expect(result.data.steamId).to.eq('76561198028175941');
+    expect(result.data.entityClass).to.eq('zombie');
+    expect(result.data.entityName).to.eq('zombieBoe');
+
+  });
+
+  it('correctly detects a PrismaCore a20 zombieKilled event', () => {
+    const logLine = {
+      'date': '2017-11-14',
+      'time': '14:50:49',
+      'uptime': '133.559',
+      'msg': '[PrismaCore]entityKilled: Catalysm (Steam_76561198028175941) killed zombie zombieYo with Dev: Instant Death Pistol',
+      'trace': '',
+      'type': 'Log'
+    };
+    const result = handleLogLine(logLine);
+
+    expect(result.type).to.eq('zombieKilled');
+    expect(result.data.steamId).to.eq('76561198028175941');
+    expect(result.data.entityClass).to.eq('zombie');
+    expect(result.data.entityName).to.eq('zombieYo');
+
+  });
+
   it('correctly detects a animalKilled event', () => {
     const logLine = {
       'date': '2017-11-14',
@@ -306,6 +399,42 @@ describe('sdtdLogs#handleLogLine', () => {
       'time': '14:50:49',
       'uptime': '133.559',
       'msg': '[CSMM_Patrons]entityKilled: Catalysm (Steam_76561198028175941) killed animal animalZombieDog with Dev: Instant Death Pistol',
+      'trace': '',
+      'type': 'Log'
+    };
+    const result = handleLogLine(logLine);
+
+    expect(result.type).to.eq('animalKilled');
+    expect(result.data.steamId).to.eq('76561198028175941');
+    expect(result.data.entityClass).to.eq('animal');
+    expect(result.data.entityName).to.eq('animalZombieDog');
+
+  });
+
+  it('correctly detects a PrismaCore animalKilled event', () => {
+    const logLine = {
+      'date': '2017-11-14',
+      'time': '14:50:49',
+      'uptime': '133.559',
+      'msg': '[PrismaCore]entityKilled: (VE) Kiota (76561198028175941) killed animal cuteBambi',
+      'trace': '',
+      'type': 'Log'
+    };
+    const result = handleLogLine(logLine);
+
+    expect(result.type).to.eq('animalKilled');
+    expect(result.data.steamId).to.eq('76561198028175941');
+    expect(result.data.entityClass).to.eq('animal');
+    expect(result.data.entityName).to.eq('cuteBambi');
+
+  });
+
+  it('correctly detects a PrismaCore a20 animalKilled event', () => {
+    const logLine = {
+      'date': '2017-11-14',
+      'time': '14:50:49',
+      'uptime': '133.559',
+      'msg': '[PrismaCore]entityKilled: Catalysm (Steam_76561198028175941) killed animal animalZombieDog with Dev: Instant Death Pistol',
       'trace': '',
       'type': 'Log'
     };
