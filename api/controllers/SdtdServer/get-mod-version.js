@@ -15,7 +15,7 @@ module.exports = {
     mod: {
       type: 'string',
       required: true,
-      isIn: ['cpm', 'allocs']
+      isIn: ['cpm', 'allocs', 'prismacore']
     }
 
   },
@@ -29,7 +29,7 @@ module.exports = {
 
   fn: async function (inputs, exits) {
 
-    if (inputs.mod.includes('cpm')) {
+    if (inputs.mod.includes('cpm') || inputs.mod.includes('prismacore')) {
       inputs.mod = 'Mod CSMM Patrons';
     }
 
